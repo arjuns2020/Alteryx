@@ -1,0 +1,466 @@
+<?xml version="1.0"?>
+<AlteryxDocument yxmdVer="2018.4">
+  <Nodes>
+    <Node ToolID="1">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.DbFileInput.DbFileInput">
+        <Position x="18" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Passwords />
+          <File OutputFileName="" FileFormat="19" SearchSubDirs="False" RecordLimit="">C:\Users\Arjun\Desktop\Pred_Analytics using Alteryx\Store Census Data.yxdb</File>
+          <FormatSpecificOptions />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Store Census Data.yxdb</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <Dependencies>
+          <Implicit />
+        </Dependencies>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="StoreID" size="64" source="Summarize: GroupBy - StoreID" type="String" />
+            <Field name="Site Postcode" size="254" source="Summarize: GroupBy - Site Postcode" type="V_String" />
+            <Field name="Site Name" size="254" source="Summarize: GroupBy - Site Name" type="V_String" />
+            <Field name="Latitude" source="Summarize: GroupBy - Latitude" type="Double" />
+            <Field name="Longitude" source="Summarize: GroupBy - Longitude" type="Double" />
+            <Field name="Sum_Residents" source="Summarize: Sum - Residents" type="Int64" />
+            <Field name="Mean Age" source="Formula: [Sum_AgeWeighted]/[Sum_Residents]" type="Double" />
+            <Field name="Sum_White" source="Summarize: Sum - White" type="Int64" />
+            <Field name="Sum_White British" source="Summarize: Sum - White British" type="Int64" />
+            <Field name="Sum_Mixed Race" source="Summarize: Sum - Mixed Race" type="Int64" />
+            <Field name="Sum_Asian British" source="Summarize: Sum - Asian British" type="Int64" />
+            <Field name="Sum_Black / Black British" source="Summarize: Sum - Black / Black British" type="Int64" />
+            <Field name="Sum_One Person HH" source="Summarize: Sum - One Person HH" type="Int64" />
+            <Field name="Sum_HH 65+" source="Summarize: Sum - HH 65+" type="Int64" />
+            <Field name="Sum_Couple" source="Summarize: Sum - Couple" type="Int64" />
+            <Field name="Sum_lone Parent" source="Summarize: Sum - lone Parent" type="Int64" />
+            <Field name="Sum_Economically active" source="Summarize: Sum - Economically active" type="Int64" />
+            <Field name="Sum_Economically Inactive" source="Summarize: Sum - Economically Inactive" type="Int64" />
+            <Field name="Sum_Students" source="Summarize: Sum - Students" type="Int64" />
+            <Field name="Sum_Cars 0" source="Summarize: Sum - Cars 0" type="Int64" />
+            <Field name="Sum_Cars 1" source="Summarize: Sum - Cars 1" type="Int64" />
+            <Field name="Sum_Cars 2" source="Summarize: Sum - Cars 2" type="Int64" />
+            <Field name="Sum_Cars 3" source="Summarize: Sum - Cars 3" type="Int64" />
+            <Field name="Sum_Cars 4" source="Summarize: Sum - Cars 4" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDbFileInput" />
+    </Node>
+    <Node ToolID="2">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.DbFileInput.DbFileInput">
+        <Position x="30" y="186" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Passwords />
+          <File OutputFileName="" FileFormat="19" SearchSubDirs="False" RecordLimit="">C:\Users\Arjun\Desktop\Pred_Analytics using Alteryx\Sales.yxdb</File>
+          <FormatSpecificOptions />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Sales.yxdb</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <Dependencies>
+          <Implicit />
+        </Dependencies>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="StoreID" size="5" source="Summarize: GroupBy - StoreID" type="WString" />
+            <Field name="Sum_Sales" source="Summarize: Sum - Sales" type="Double" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDbFileInput" />
+    </Node>
+    <Node ToolID="3">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+        <Position x="150" y="126" />
+      </GuiSettings>
+      <Properties>
+        <Configuration joinByRecordPos="False">
+          <JoinInfo connection="Left">
+            <Field field="StoreID" />
+          </JoinInfo>
+          <JoinInfo connection="Right">
+            <Field field="StoreID" />
+          </JoinInfo>
+          <SelectConfiguration>
+            <Configuration outputConnection="Join">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="Right_StoreID" selected="True" rename="Right_StoreID" input="Right_" />
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+    </Node>
+    <Node ToolID="5">
+      <GuiSettings>
+        <Position x="246" y="126" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Value name="estimation pct">70</Value>
+          <Value name="validation pct">30</Value>
+          <Value name="rand seed">1</Value>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <Dependencies>
+          <Implicit />
+        </Dependencies>
+      </Properties>
+      <EngineSettings Macro="Predictive Tools\Create_Samples.yxmc" />
+    </Node>
+    <Node ToolID="11">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.DbFileOutput.DbFileOutput">
+        <Position x="750" y="114" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <File FileFormat="19" MaxRecords="">C:\Users\Arjun\Desktop\Pred_Analytics using Alteryx\Linear.yxdb</File>
+          <Passwords />
+          <FormatSpecificOptions>
+            <NoSpatialIndex>False</NoSpatialIndex>
+            <SaveSource>True</SaveSource>
+          </FormatSpecificOptions>
+          <MultiFile value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Linear.yxdb</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <Dependencies>
+          <Implicit />
+        </Dependencies>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDbFileOutput" />
+    </Node>
+    <Node ToolID="12">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.DbFileOutput.DbFileOutput">
+        <Position x="774" y="234" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <File FileFormat="19" MaxRecords="">C:\Users\Arjun\Desktop\Pred_Analytics using Alteryx\spinal.yxdb</File>
+          <Passwords />
+          <FormatSpecificOptions>
+            <NoSpatialIndex>False</NoSpatialIndex>
+            <SaveSource>True</SaveSource>
+          </FormatSpecificOptions>
+          <MultiFile value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>spinal.yxdb</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <Dependencies>
+          <Implicit />
+        </Dependencies>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDbFileOutput" />
+    </Node>
+    <Node ToolID="13">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.DbFileOutput.DbFileOutput">
+        <Position x="762" y="342" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <File FileFormat="19" MaxRecords="">C:\Users\Arjun\Desktop\Pred_Analytics using Alteryx\boosted.yxdb</File>
+          <Passwords />
+          <FormatSpecificOptions>
+            <NoSpatialIndex>False</NoSpatialIndex>
+            <SaveSource>True</SaveSource>
+          </FormatSpecificOptions>
+          <MultiFile value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>boosted.yxdb</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <Dependencies>
+          <Implicit />
+        </Dependencies>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDbFileOutput" />
+    </Node>
+    <Node ToolID="7">
+      <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
+        <Position x="434" y="0" width="306" height="477" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Caption>Container 7</Caption>
+          <Style TextColor="#314c4a" FillColor="#ecf2f2" BorderColor="#314c4a" Transparency="25" Margin="100" />
+          <Disabled value="False" />
+          <Folded value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <ChildNodes>
+        <Node ToolID="8">
+          <GuiSettings Plugin="Linear_Regression">
+            <Position x="534" y="119" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Value name="curPage">Home</Value>
+              <Value name="curTab">advanced</Value>
+              <Value name="standardize_pred">True</Value>
+              <Value name="internal_cv">True</Value>
+              <Value name="display_graphs">True</Value>
+              <Value name="set_seed_internal_cv">True</Value>
+              <Value name="set_seed_external_cv">True</Value>
+              <Value name="lambda_1se">True</Value>
+              <Value name="lambda_min">False</Value>
+              <Value name="Model Name">Linear_Regression</Value>
+              <Value name="Y Var">Sum_Sales</Value>
+              <Value name="X Vars">Sum_Residents,Mean Age,Sum_White,Sum_White British,Sum_Mixed Race,Sum_Asian British,Sum_Black / Black British,Sum_One Person HH,Sum_HH 65+,Sum_Couple,Sum_lone Parent,Sum_Economically active,Sum_Economically Inactive,Sum_Students,Sum_Cars 0,Sum_Cars 1,Sum_Cars 2,Sum_Cars 3,Sum_Cars 4,Right_StoreID</Value>
+              <Value name="Omit Constant">False</Value>
+              <Value name="Use Weights">False</Value>
+              <Value name="Weight Vec" />
+              <Value name="regularization">False</Value>
+              <Value name="alpha">0.5</Value>
+              <Value name="nfolds">5</Value>
+              <Value name="lambda">lambda_1se</Value>
+              <Value name="seed_internal_cv">1</Value>
+              <Value name="lambda_no_cv">0.5</Value>
+              <Value name="external_cv">False</Value>
+              <Value name="nfolds_external">5</Value>
+              <Value name="numberTrials">3</Value>
+              <Value name="external_seed_value">1</Value>
+              <Value name="graph.resolution">1x</Value>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText>Linear_Regression</DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+          <EngineSettings Macro="Linear_Regression/Supporting_Macros/Linear_Regression.yxmc" EngineDll="Macro" EngineDllEntryPoint="Linear_Regression/Supporting_Macros/Linear_Regression.yxmc" />
+        </Node>
+        <Node ToolID="9">
+          <GuiSettings>
+            <Position x="534" y="234" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Value name="model.name">Boosted</Value>
+              <Value name="select.target">Sum_Sales</Value>
+              <Value name="select.predictors">StoreID=False,Site Postcode=False,Site Name=False,Latitude=False,Longitude=False,Sum_Residents=True,Mean Age=True,Sum_White=True,Sum_White British=True,Sum_Mixed Race=True,Sum_Asian British=True,Sum_Black / Black British=True,Sum_One Person HH=True,Sum_HH 65+=True,Sum_Couple=True,Sum_lone Parent=True,Sum_Economically active=True,Sum_Economically Inactive=True,Sum_Students=True,Sum_Cars 0=True,Sum_Cars 1=True,Sum_Cars 2=True,Sum_Cars 3=True,Sum_Cars 4=True,Right_StoreID=True,Sum_Sales=False</Value>
+              <Value name="use.weights">False</Value>
+              <Value name="select.weights">Latitude</Value>
+              <Value name="marginal.plots">False</Value>
+              <Value name="plot.min.importance">2.5</Value>
+              <Value name="type.distribution">False</Value>
+              <Value name="type.continuous">True</Value>
+              <Value name="dist.gaussian">True</Value>
+              <Value name="dist.laplace">False</Value>
+              <Value name="dist.t">False</Value>
+              <Value name="t.df">4</Value>
+              <Value name="type.count">False</Value>
+              <Value name="type.binomial">False</Value>
+              <Value name="dist.bernoulli">True</Value>
+              <Value name="dist.adaboost">False</Value>
+              <Value name="type.multinomial">False</Value>
+              <Value name="n.trees">4000</Value>
+              <Value name="assess.cv">True</Value>
+              <Value name="num.folds">5</Value>
+              <Value name="n.cores">1</Value>
+              <Value name="assess.test">False</Value>
+              <Value name="train.fraction">50.0</Value>
+              <Value name="assess.oob">False</Value>
+              <Value name="bag.fraction">50.0</Value>
+              <Value name="shrinkage">0.0020</Value>
+              <Value name="interaction.depth">1</Value>
+              <Value name="n.minobsinnode">10</Value>
+              <Value name="rand.seed">1</Value>
+              <Value name="inches">True</Value>
+              <Value name="in.w">5.50</Value>
+              <Value name="in.h">5.50</Value>
+              <Value name="centimeters">False</Value>
+              <Value name="cm.w">13.00</Value>
+              <Value name="cm.h">14.95</Value>
+              <Value name="graph.resolution">1x</Value>
+              <Value name="pointsize">10</Value>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+            <Dependencies>
+              <Implicit />
+            </Dependencies>
+          </Properties>
+          <EngineSettings Macro="Predictive Tools\Boosted_Model.yxmc" />
+        </Node>
+        <Node ToolID="10">
+          <GuiSettings>
+            <Position x="534" y="318" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Value name="model.name">spline</Value>
+              <Value name="select.target">Sum_Sales</Value>
+              <Value name="select.predictors">StoreID=False,Site Postcode=False,Site Name=False,Latitude=False,Longitude=False,Sum_Residents=True,Mean Age=True,Sum_White=True,Sum_White British=True,Sum_Mixed Race=True,Sum_Asian British=True,Sum_Black / Black British=True,Sum_One Person HH=True,Sum_HH 65+=True,Sum_Couple=True,Sum_lone Parent=True,Sum_Economically active=True,Sum_Economically Inactive=True,Sum_Students=True,Sum_Cars 0=True,Sum_Cars 1=True,Sum_Cars 2=True,Sum_Cars 3=True,Sum_Cars 4=True,Right_StoreID=True,Sum_Sales=False</Value>
+              <Value name="marginal.plots">True</Value>
+              <Value name="main.effect.plots">False</Value>
+              <Value name="interaction.effect.plots">False</Value>
+              <Value name="both.main.interaction.plots">True</Value>
+              <Value name="type.glm">False</Value>
+              <Value name="type.continuous">True</Value>
+              <Value name="continuous.none">False</Value>
+              <Value name="continuous.gaussian">True</Value>
+              <Value name="type.gamma">False</Value>
+              <Value name="gamma.log">True</Value>
+              <Value name="gamma.inverse">False</Value>
+              <Value name="gamma.identity">False</Value>
+              <Value name="type.count">False</Value>
+              <Value name="poisson.log">True</Value>
+              <Value name="poisson.identity">False</Value>
+              <Value name="type.binomial">False</Value>
+              <Value name="binomial.logit">True</Value>
+              <Value name="binomial.probit">False</Value>
+              <Value name="binomial.cloglog">False</Value>
+              <Value name="type.multinomial">False</Value>
+              <Value name="scale.target">True</Value>
+              <Value name="max.knots">Auto</Value>
+              <Value name="interaction.depth">1</Value>
+              <Value name="penalty">default</Value>
+              <Value name="thresh">0.0010000</Value>
+              <Value name="minspan">0.000</Value>
+              <Value name="newvar.penalty">0.0000</Value>
+              <Value name="fast.k">20</Value>
+              <Value name="fast.beta">1.00</Value>
+              <Value name="cross.validation">False</Value>
+              <Value name="ncross">1</Value>
+              <Value name="nfolds">1</Value>
+              <Value name="stratify">False</Value>
+              <Value name="random.seed">1</Value>
+              <Value name="pmethod">backward</Value>
+              <Value name="nprune">0</Value>
+              <Value name="inches">True</Value>
+              <Value name="in.w">5.50</Value>
+              <Value name="in.h">5.50</Value>
+              <Value name="centimeters">False</Value>
+              <Value name="cm.w">13.00</Value>
+              <Value name="com.h">14.95</Value>
+              <Value name="graph.resolution">1x</Value>
+              <Value name="pointsize">10</Value>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+            <Dependencies>
+              <Implicit />
+            </Dependencies>
+          </Properties>
+          <EngineSettings Macro="Predictive Tools\Spline_Model.yxmc" />
+        </Node>
+      </ChildNodes>
+    </Node>
+  </Nodes>
+  <Connections>
+    <Connection>
+      <Origin ToolID="1" Connection="Output" />
+      <Destination ToolID="3" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="2" Connection="Output" />
+      <Destination ToolID="3" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="3" Connection="Join" />
+      <Destination ToolID="5" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="5" Connection="Estimation" />
+      <Destination ToolID="8" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="5" Connection="Estimation" />
+      <Destination ToolID="9" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="5" Connection="Estimation" />
+      <Destination ToolID="10" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="8" Connection="Output" />
+      <Destination ToolID="11" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="9" Connection="Output" />
+      <Destination ToolID="12" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="10" Connection="Output" />
+      <Destination ToolID="13" Connection="Input" />
+    </Connection>
+  </Connections>
+  <Properties>
+    <Memory default="True" />
+    <GlobalRecordLimit value="0" />
+    <TempFiles default="True" />
+    <Annotation on="True" includeToolName="False" />
+    <ConvErrorLimit value="10" />
+    <ConvErrorLimit_Stop value="False" />
+    <CancelOnError value="False" />
+    <DisableBrowse value="False" />
+    <EnablePerformanceProfiling value="False" />
+    <DisableAllOutput value="False" />
+    <ShowAllMacroMessages value="False" />
+    <ShowConnectionStatusIsOn value="True" />
+    <ShowConnectionStatusOnlyWhenRunning value="True" />
+    <ZoomLevel value="0" />
+    <LayoutType>Horizontal</LayoutType>
+    <MetaInfo>
+      <NameIsFileName value="True" />
+      <Name>New Workflow2</Name>
+      <Description />
+      <RootToolName />
+      <ToolVersion />
+      <ToolInDb value="False" />
+      <CategoryName />
+      <SearchTags />
+      <Author />
+      <Company />
+      <Copyright />
+      <DescriptionLink actual="" displayed="" />
+      <Example>
+        <Description />
+        <File />
+      </Example>
+    </MetaInfo>
+    <Events>
+      <Enabled value="True" />
+    </Events>
+  </Properties>
+</AlteryxDocument>
